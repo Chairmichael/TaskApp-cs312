@@ -1,6 +1,6 @@
 import argon2 from 'argon2';
 import type { Request, Response } from 'express';
-import { addUser, findUserByEmail } from '../models/UserModel.js';
+import * as Users from '../models/UserModel.js';
 import type { AuthRequestBody, NewUser } from '../types.js';
 
 // SQLite throws this if someone signs up with an email already in the db
@@ -32,7 +32,7 @@ export async function auth(
             const passwordHash = await argon2.hash(password);
             const newUser: NewUser = { email, name, passwordHash };
             try {
-                addUser(newUser);
+                Users.insert(newUser);
             } catch (error) {
                 if (isUniqueConstraintError(error)) {
                     res.status(409).json({ error: 'Email is already registered.' });
@@ -45,7 +45,7 @@ export async function auth(
             return;
         }
 
-        const user = findUserByEmail(email);
+        const user = Users.findByEmail(email);
         if (!user || !(await argon2.verify(user.passwordHash, password))) {
             res.status(401).json({ error: 'Invalid email or password.' });
             return;
