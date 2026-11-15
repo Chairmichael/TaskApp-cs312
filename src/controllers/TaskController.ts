@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
-// import * as Task from '../models/TaskModel.js';
-// import * as User from '../models/UserModel.js';
+import * as Tasks from '../models/TaskModel.js';
 
 // handles the requests and makes db calls via the models
 
