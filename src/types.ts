@@ -9,3 +9,21 @@ export interface Task {
     assignee_email: string | null;
     team_id: string | null;
 }
+
+export interface AuthRequestBody {
+    action?: unknown;
+    email?: unknown;
+    password?: unknown;
+    name?: unknown;
+}
+
+export interface NewUser {
+    email: string;
+    name: string;
+    passwordHash: string;
+}
+
+export interface UserCredentials {
+    name: string;
+    passwordHash: string;
+}

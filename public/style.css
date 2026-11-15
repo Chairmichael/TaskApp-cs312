@@ -1,0 +1,61 @@
+* {
+	/*
+		i'm using low-contrast dark colors for testing because
+		i'm on the brink of a migraine, but we can always change
+		these later and it'll work fine
+	*/
+
+	--bg-color: black;
+	--fg-color: gray;
+	--border-color: gray;
+	
+	--border: 1px solid var(--border-color);
+	--border-radius: 2px;
+
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+	appearance: none;
+	box-sizing: border-box;
+}
+
+body, html {
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+
+	background-color: var(--bg-color);
+	color: var(--fg-color);
+}
+
+.center-children {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 15px;
+	gap: 15px;
+}
+
+.block {
+	border: var(--border);
+	border-radius: var(--border-radius);
+
+	padding: 15px;
+}
+
+input {
+	background-color: var(--bg-color);
+	color: var(--fg-color);
+
+	border: var(--border);
+	border-radius: var(--border-radius);
+
+	display: block;
+	padding: 5px;
+	margin-bottom: 15px;
+}
+
+input[type="submit"], a, button {
+	margin-left: auto;
+	text-decoration: underline;
+}

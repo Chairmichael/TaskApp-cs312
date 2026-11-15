@@ -1,7 +1,7 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
+import * as Tasks from "../models/TaskModel.js";
 
-// temporary sample tasks for testing the page design.
-// these tasks are not saved in the database.
+// Sample data used only for the layout preview.
 const sampleTasks = [
   {
     title: "Finish the task page",
@@ -29,13 +29,24 @@ const sampleTasks = [
   },
 ];
 
-export function list(req: Request, res: Response) {
-  res.render("index", {
-    tasks: req.query.preview === "1" ? sampleTasks : [],
-  });
+export function list(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const isPreview = req.query.preview === "1";
+
+    res.render("tasks", {
+      tasks: isPreview ? sampleTasks : Tasks.findAll(),
+      isPreview,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
-// these functions will be completed with the backend.
+// These functions will be completed with the backend.
 export function create(req: Request, res: Response) {}
 
 export function updateStatus(req: Request, res: Response) {}
