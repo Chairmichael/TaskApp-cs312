@@ -7,14 +7,14 @@
 	<title>CS312 TaskApp</title>
 </head>
 <body class="center-children">
-	<form action="/" method="post" class="block">
+	<form action="/auth/login" method="post" class="block">
 		<h1>Log In</h1>
 
-		<label for="username-field">Username</label>
-		<input type="text" name="username" id="username-field" autocomplete="username" placeholder="johndoe123">
+		<label for="email-field">Email</label>
+		<input type="email" name="email" id="email-field" autocomplete="email" required>
 
 		<label for="password-field">Password</label>
-		<input type="password" name="password" id="password-field" autocomplete="current-password" placeholder="mypassword">
+		<input type="password" name="password" id="password-field" autocomplete="current-password" required>
 
 		<input type="submit" value="Log In">
 	</form>
