@@ -2,52 +2,66 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/style.css">
-	<title>CS312 TaskApp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <title>CS312 TaskApp</title>
 </head>
 
-<body class="center-children">
-	<form action="/auth/login" method="post" class="block login-form">
-		<h1>Log In</h1>
+<body class="center-children" first-active="<%= showForm %>">
+  <form action="/auth/login" method="post" class="block login-form">
+    <h1>Log In</h1>
 
-		<label for="email-field">Email</label>
-		<input type="email" name="email" id="email-field" autocomplete="email" required>
+    <label for="email-field">Email</label>
+    <input type="email" name="email" id="email-field" autocomplete="email" required>
 
-		<label for="password-field">Password</label>
-		<input type="password" name="password" id="password-field" autocomplete="current-password" required>
+    <label for="password-field">Password</label>
+    <input type="password" name="password" id="password-field" autocomplete="current-password" required>
 
-		<input type="submit" value="Log In">
-		<p>Need an account? <br> <a onclick="event.preventDefault(); showSignup();">Sign up!</a></p>
-	</form>
+    <input type="submit" value="Log In">
+    <p>Need an account? <br> <a onclick="event.preventDefault(); showSignup();">Sign up!</a></p>
+  </form>
 
-	<form action="/auth/signup" method="post" class="block signup-form">
-		<h1>Sign Up</h1>
+  <form action="/auth/signup" method="post" class="block signup-form">
+    <h1>Sign Up</h1>
 
-		<label for="email-field">Name</label>
-		<input type="text" name="name" id="name-field" autocomplete="name" required>
+    <label for="email-field">Name</label>
+    <input type="text" name="name" id="name-field" autocomplete="name" required>
 
-		<label for="email-field">Email</label>
-		<input type="email" name="email" id="email-field" autocomplete="email" required>
+    <label for="email-field">Email</label>
+    <input type="email" name="email" id="email-field" autocomplete="email" required>
 
-		<label for="password-field">Password</label>
-		<input type="password" name="password" id="password-field" autocomplete="current-password" required>
+    <label for="password-field">Password</label>
+    <input type="password" name="password" id="password-field" autocomplete="current-password" required>
 
-		<input type="submit" value="Sign Up">
-		<p>Already have an account? <br> <a onclick="event.preventDefault(); showLogin();">Log in!</a></p>
-	</form>
+    <input type="submit" value="Sign Up">
+    <p>Already have an account? <br> <a onclick="event.preventDefault(); showLogin();">Log in!</a></p>
+  </form>
 
-	<script>
-		function showSignup() {
-			document.querySelector('.login-form').style.display = 'none';
-			document.querySelector('.signup-form').style.display = 'block';
-		}
-		function showLogin() {
-			document.querySelector('.signup-form').style.display = 'none';
-			document.querySelector('.login-form').style.display = 'block';
-		}
-	</script>
+  <% if (error) { %>
+  <section class="block error">
+    <h3> Error: <%= error.status %>
+    </h3>
+    <hr>
+    <p>
+      <%= error.message %>
+    </p>
+  </section>
+  <% } %>
+
+  <script>
+    function showSignup() {
+      document.querySelector('.login-form').style.display = 'none';
+      document.querySelector('.signup-form').style.display = 'block';
+      document.querySelector('.error').style.display = 'none';
+    }
+
+    function showLogin() {
+      document.querySelector('.signup-form').style.display = 'none';
+      document.querySelector('.login-form').style.display = 'block';
+      document.querySelector('.error').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>

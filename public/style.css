@@ -37,6 +37,11 @@ html {
 	gap: 15px;
 }
 
+body[first-active="login"] .signup-form,
+body[first-active="signup"] .login-form {
+	display: none;
+}
+
 .block {
 	border: var(--border);
 	border-radius: var(--border-radius);
@@ -63,11 +68,13 @@ button {
 	text-decoration: underline;
 }
 
-.signup-form {
-	display: none;
-}
-
 .login-form a,
 .signup-form a {
 	cursor: pointer;
 }
+
+.error,
+.error * {
+	color: brown;
+}
+
