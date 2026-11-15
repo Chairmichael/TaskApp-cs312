@@ -28,3 +28,7 @@ pids/
 .DS_Store
 Thumbs.db
 .idea/
+
+tasks.db
+tasks.db-shm
+tasks.db-wal
