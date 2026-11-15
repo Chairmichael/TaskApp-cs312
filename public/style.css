@@ -8,7 +8,7 @@
 	--bg-color: black;
 	--fg-color: gray;
 	--border-color: gray;
-	
+
 	--border: 1px solid var(--border-color);
 	--border-radius: 2px;
 
@@ -18,7 +18,8 @@
 	box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
@@ -55,7 +56,18 @@ input {
 	margin-bottom: 15px;
 }
 
-input[type="submit"], a, button {
+input[type="submit"],
+a,
+button {
 	margin-left: auto;
 	text-decoration: underline;
+}
+
+.signup-form {
+	display: none;
+}
+
+.login-form a,
+.signup-form a {
+	cursor: pointer;
 }
