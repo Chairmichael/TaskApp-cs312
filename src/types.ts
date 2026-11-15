@@ -11,7 +11,6 @@ export interface Task {
 }
 
 export interface AuthRequestBody {
-    action?: unknown;
     email?: unknown;
     password?: unknown;
     name?: unknown;
