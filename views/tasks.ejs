@@ -31,6 +31,17 @@
       margin: 0 auto;
     }
 
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-main {
+      min-width: 0;
+    }
+
     h1 {
       margin: 0 0 10px;
     }
@@ -51,7 +62,8 @@
     }
 
     nav a,
-    nav button {
+    nav button,
+    .user-options button {
       padding: 12px 18px;
       border: 1px solid #d6deea;
       border-radius: 6px;
@@ -76,6 +88,18 @@
     nav button:disabled {
       background: #344762;
       color: #e0e6ef;
+    }
+
+    .user-options {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-options b {
+      padding: 5px;
+      margin: 0 5px;
     }
 
     main {
@@ -178,6 +202,11 @@
     }
 
     @media (max-width: 600px) {
+      header .container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
       h1 {
         font-size: 1.6rem;
       }
@@ -194,15 +223,24 @@
 <body>
   <header>
     <div class="container">
-      <h1>Team Task Manager</h1>
-      <p>Keep your team's tasks in one place.</p>
+      <div class="header-main">
+        <h1>Team Task Manager</h1>
+        <p>Keep your team's tasks in one place.</p>
 
-      <nav aria-label="Main navigation">
-        <a href="/tasks" aria-current="page">Tasks</a>
-        <button type="button" disabled>
-          Dashboard - Coming Soon
-        </button>
-      </nav>
+        <nav aria-label="Main navigation">
+          <a href="/tasks" aria-current="page">Tasks</a>
+          <button type="button" disabled>
+            Dashboard - Coming Soon
+          </button>
+        </nav>
+      </div>
+      <div class="user-options">
+        <b><%= user.name %></b>
+        <form method="post" action="/auth/logout">
+          <button type="submit">Log out</button>
+        </form>
+        <!-- <a>change password</a> -->
+      </div>
     </div>
   </header>
 
@@ -309,6 +347,7 @@
     </section>
     <% } %>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.11/dist/htmx.min.js" integrity="sha384-2OatzQy1H+Zd/IIrjr1TcuDGqLXeHhbooAyJY1KdQMKnr4LZ22k31GBLdYKHmVjg" crossorigin="anonymous"></script>
 </body>
 
 </html>

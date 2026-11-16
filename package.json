@@ -23,7 +23,6 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc && esbuild src/client/*.ts --bundle --outdir=public/js",
     "start": "node dist/server.js"
   }
 }
