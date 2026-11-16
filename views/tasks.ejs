@@ -1,200 +1,229 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Team Task Manager</title>
 
-    <style>
-      * {
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Task Manager</title>
 
-      body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f6f8;
-        color: #243042;
-        line-height: 1.6;
-      }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-      header {
-        padding: 28px 20px;
-        background: #23344d;
-        color: white;
-      }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #243042;
+      line-height: 1.6;
+    }
 
-      .container {
-        width: 100%;
-        max-width: 1100px;
-        margin: 0 auto;
+    header {
+      padding: 28px 20px;
+      background: #23344d;
+      color: white;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-main {
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+    }
+
+    h1,
+    h3,
+    p,
+    dd,
+    .badge {
+      overflow-wrap: anywhere;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    nav a,
+    nav button,
+    .user-options button {
+      padding: 12px 18px;
+      border: 1px solid #d6deea;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    nav a {
+      background: white;
+      color: #23344d;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: #e8eef7;
+    }
+
+    nav a:focus-visible {
+      outline: 3px solid #ffcf66;
+      outline-offset: 3px;
+    }
+
+    nav button:disabled {
+      background: #344762;
+      color: #e0e6ef;
+    }
+
+    .user-options {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-options b {
+      padding: 5px;
+      margin: 0 5px;
+    }
+
+    main {
+      padding: 25px 20px;
+    }
+
+    .preview-note {
+      color: #526071;
+      margin-bottom: 20px;
+    }
+
+    .empty-state {
+      padding: 35px 20px;
+      border: 1px solid #dce2e8;
+      border-radius: 8px;
+      background: white;
+      text-align: center;
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,
+          minmax(min(100%, 300px), 1fr));
+      gap: 20px;
+    }
+
+    .task-card {
+      min-width: 0;
+      padding: 24px;
+      background: white;
+      border: 1px solid #dce2e8;
+      border-radius: 8px;
+    }
+
+    .task-card h3 {
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+    }
+
+    .task-body {
+      margin: 20px 0;
+      white-space: pre-wrap;
+    }
+
+    .task-details {
+      margin: 0 0 20px;
+    }
+
+    .task-details div {
+      margin-bottom: 14px;
+    }
+
+    .task-details dt {
+      font-weight: bold;
+    }
+
+    .task-details dd {
+      margin: 3px 0 0;
+      color: #526071;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .priority-high {
+      background: #ffe5e5;
+      color: #921f1f;
+    }
+
+    .priority-medium {
+      background: #fff0d6;
+      color: #854600;
+    }
+
+    .priority-low,
+    .status-completed {
+      background: #e2f3e7;
+      color: #216338;
+    }
+
+    .status-open {
+      background: #e5edff;
+      color: #244b91;
+    }
+
+    .status-in-progress {
+      background: #fff0d6;
+      color: #854600;
+    }
+
+    .priority-unset,
+    .status-unset {
+      background: #edf0f3;
+      color: #465261;
+    }
+
+    @media (max-width: 600px) {
+      header .container {
+        flex-direction: column;
+        align-items: stretch;
       }
 
       h1 {
-        margin: 0 0 10px;
-      }
-
-      h1,
-      h3,
-      p,
-      dd,
-      .badge {
-        overflow-wrap: anywhere;
-      }
-
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 20px;
+        font-size: 1.6rem;
       }
 
       nav a,
       nav button {
-        padding: 12px 18px;
-        border: 1px solid #d6deea;
-        border-radius: 6px;
-        font: inherit;
-      }
-
-      nav a {
-        background: white;
-        color: #23344d;
-        text-decoration: none;
-      }
-
-      nav a:hover {
-        background: #e8eef7;
-      }
-
-      nav a:focus-visible {
-        outline: 3px solid #ffcf66;
-        outline-offset: 3px;
-      }
-
-      nav button:disabled {
-        background: #344762;
-        color: #e0e6ef;
-      }
-
-      main {
-        padding: 25px 20px;
-      }
-
-      .preview-note {
-        color: #526071;
-        margin-bottom: 20px;
-      }
-
-      .empty-state {
-        padding: 35px 20px;
-        border: 1px solid #dce2e8;
-        border-radius: 8px;
-        background: white;
+        width: 100%;
         text-align: center;
       }
+    }
+  </style>
+</head>
 
-      .task-grid {
-        display: grid;
-        grid-template-columns: repeat(
-          auto-fit,
-          minmax(min(100%, 300px), 1fr)
-        );
-        gap: 20px;
-      }
-
-      .task-card {
-        min-width: 0;
-        padding: 24px;
-        background: white;
-        border: 1px solid #dce2e8;
-        border-radius: 8px;
-      }
-
-      .task-card h3 {
-        margin: 0 0 16px;
-        font-size: 1.2rem;
-      }
-
-      .task-body {
-        margin: 20px 0;
-        white-space: pre-wrap;
-      }
-
-      .task-details {
-        margin: 0 0 20px;
-      }
-
-      .task-details div {
-        margin-bottom: 14px;
-      }
-
-      .task-details dt {
-        font-weight: bold;
-      }
-
-      .task-details dd {
-        margin: 3px 0 0;
-        color: #526071;
-      }
-
-      .badge {
-        display: inline-block;
-        padding: 6px 10px;
-        border-radius: 5px;
-        font-size: 0.85rem;
-        font-weight: bold;
-      }
-
-      .priority-high {
-        background: #ffe5e5;
-        color: #921f1f;
-      }
-
-      .priority-medium {
-        background: #fff0d6;
-        color: #854600;
-      }
-
-      .priority-low,
-      .status-completed {
-        background: #e2f3e7;
-        color: #216338;
-      }
-
-      .status-open {
-        background: #e5edff;
-        color: #244b91;
-      }
-
-      .status-in-progress {
-        background: #fff0d6;
-        color: #854600;
-      }
-
-      .priority-unset,
-      .status-unset {
-        background: #edf0f3;
-        color: #465261;
-      }
-
-      @media (max-width: 600px) {
-        h1 {
-          font-size: 1.6rem;
-        }
-
-        nav a,
-        nav button {
-          width: 100%;
-          text-align: center;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <div class="container">
+<body>
+  <header>
+    <div class="container">
+      <div class="header-main">
         <h1>Team Task Manager</h1>
         <p>Keep your team's tasks in one place.</p>
 
@@ -205,25 +234,33 @@
           </button>
         </nav>
       </div>
-    </header>
+      <div class="user-options">
+        <b><%= user.name %></b>
+        <form method="post" action="/auth/logout">
+          <button type="submit">Log out</button>
+        </form>
+        <!-- <a>change password</a> -->
+      </div>
+    </div>
+  </header>
 
-    <main class="container">
-      <h2>Team Tasks</h2>
+  <main class="container">
+    <h2>Team Tasks</h2>
 
-      <% if (isPreview) { %>
-        <p class="preview-note">
-          Preview - sample tasks for testing the layout.
-        </p>
-      <% } %>
+    <% if (isPreview) { %>
+    <p class="preview-note">
+      Preview - sample tasks for testing the layout.
+    </p>
+    <% } %>
 
-      <% if (tasks.length === 0) { %>
-        <section class="empty-state">
-          <h3>No tasks found</h3>
-          <p>Tasks will appear here after they are created.</p>
-        </section>
-      <% } else { %>
-        <section class="task-grid" aria-label="Task list">
-          <% tasks.forEach((task) => {
+    <% if (tasks.length === 0) { %>
+    <section class="empty-state">
+      <h3>No tasks found</h3>
+      <p>Tasks will appear here after they are created.</p>
+    </section>
+    <% } else { %>
+    <section class="task-grid" aria-label="Task list">
+      <% tasks.forEach((task) => {
             const priority = String(task.priority || "")
               .trim()
               .toLowerCase();
@@ -277,34 +314,36 @@
               ? statusLabels[statusKey]
               : (task.status || "Not set");
           %>
-            <article class="task-card">
-              <h3><%= task.title %></h3>
+      <article class="task-card">
+        <h3><%= task.title %></h3>
 
-              <span class="badge priority-<%= priorityClass %>">
-                Priority: <%= priorityLabel %>
-              </span>
+        <span class="badge priority-<%= priorityClass %>">
+          Priority: <%= priorityLabel %>
+        </span>
 
-              <p class="task-body"><%= task.body || "No description provided." %></p>
+        <p class="task-body"><%= task.body || "No description provided." %></p>
 
-              <dl class="task-details">
-                <div>
-                  <dt>Due date</dt>
-                  <dd><%= task.due_date || "No due date" %></dd>
-                </div>
+        <dl class="task-details">
+          <div>
+            <dt>Due date</dt>
+            <dd><%= task.due_date || "No due date" %></dd>
+          </div>
 
-                <div>
-                  <dt>Assigned to</dt>
-                  <dd><%= task.assignee_email || "Unassigned" %></dd>
-                </div>
-              </dl>
+          <div>
+            <dt>Assigned to</dt>
+            <dd><%= task.assignee_email || "Unassigned" %></dd>
+          </div>
+        </dl>
 
-              <span class="badge status-<%= statusClass %>">
-                Status: <%= statusLabel %>
-              </span>
-            </article>
-          <% }); %>
-        </section>
-      <% } %>
-    </main>
-  </body>
+        <span class="badge status-<%= statusClass %>">
+          Status: <%= statusLabel %>
+        </span>
+      </article>
+      <% }); %>
+    </section>
+    <% } %>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.11/dist/htmx.min.js" integrity="sha384-2OatzQy1H+Zd/IIrjr1TcuDGqLXeHhbooAyJY1KdQMKnr4LZ22k31GBLdYKHmVjg" crossorigin="anonymous"></script>
+</body>
+
 </html>

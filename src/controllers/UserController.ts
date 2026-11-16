@@ -13,7 +13,17 @@ export function showLogin(
     _req: Request,
     res: Response
 ): void {
-    res.render('index');
+    res.render('index', { error: null, showForm: 'login' });
+}
+
+export function showLoginWithError(
+    _req: Request,
+    res: Response,
+    status: number,
+    message: string,
+    signup: boolean = false
+): void {
+    res.status(status).render('index', { error: { status: status, message: message }, showForm: signup ? 'signup' : 'login' });
 }
 
 export async function login(
@@ -24,14 +34,14 @@ export async function login(
     const email = typeof rawEmail === 'string' ? rawEmail.trim() : '';
 
     if (!email || typeof password !== 'string') {
-        res.status(400).json({ error: 'Email and password are required.' });
+        showLoginWithError(req, res, 400, 'Email and password are required.');
         return;
     }
 
     try {
-        const user = Users.findByEmail(email);
+        const user = Users.findCredentialsByEmail(email);
         if (!user || !(await argon2.verify(user.passwordHash, password))) {
-            res.status(401).json({ error: 'Invalid email or password.' });
+            showLoginWithError(req, res, 401, 'Invalid email or password.');
             return;
         }
 
@@ -39,7 +49,7 @@ export async function login(
         res.redirect(303, '/');
     } catch (error) {
         console.error('Login request failed:', error instanceof Error ? error.message : error);
-        res.status(500).json({ error: 'Login failed. Please try again.' });
+        showLoginWithError(req, res, 500, 'Login failed. Please try again.');
     }
 }
 
@@ -58,7 +68,8 @@ export async function signup(
         password.length < 10 ||
         !name
     ) {
-        res.status(400).json({ error: 'Signup details are invalid.' });
+        showLoginWithError(req, res, 400, 'Signup details are invalid.', true);
+        console.log('Signup details are invalid.', name, email, password);
         return;
     }
 
@@ -69,7 +80,7 @@ export async function signup(
             Users.insert(newUser);
         } catch (error) {
             if (isUniqueConstraintError(error)) {
-                res.status(409).json({ error: 'Email is already registered.' });
+                showLoginWithError(req, res, 409, 'Email is already registered.', true);
                 return;
             }
             throw error;
@@ -79,7 +90,7 @@ export async function signup(
         res.redirect(303, '/');
     } catch (error) {
         console.error('Signup request failed:', error instanceof Error ? error.message : error);
-        res.status(500).json({ error: 'Signup failed. Please try again.' });
+        showLoginWithError(req, res, 500, 'Signup failed. Please try again.', true);
     }
 }
 
@@ -87,7 +98,7 @@ export function logout(req: Request, res: Response): void {
     req.session.destroy((error) => {
         if (error) {
             console.error('Logout request failed:', error.message);
-            res.status(500).json({ error: 'Logout failed. Please try again.' });
+            showLoginWithError(req, res, 500, 'Logout failed. Please try again.');
             return;
         }
 

@@ -22,7 +22,11 @@ export interface NewUser {
     passwordHash: string;
 }
 
-export interface UserCredentials {
+export interface User {
+    email: string;
     name: string;
+}
+
+export interface UserCredentials {
     passwordHash: string;
 }
