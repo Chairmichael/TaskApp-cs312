@@ -4,24 +4,50 @@
 
     <label for="title-field">Title:</label>
     <input type="text" name="title" id="title-field" required>
+    <br>
 
     <label for="duedate-field">Due date:</label>
     <input type="datetime" id="duedate-field" name="due_date">
 
     <label for="team-field">Team:</label>
-    <select name="team_id" id="team-field" <%= !teams || teams.length === 0 ? 'disabled' : '' %>>
-      <% if(teams && teams.length >= 0) { %>
-      <% teams.forEach(team => { %>
+    <% const teamList = typeof teams !== 'undefined' && Array.isArray(teams) ? teams : []; %>
+    <select name="team_id" id="team-field" <%= teamList.length === 0 ? 'disabled' : '' %>>
+      <% if (teamList.length > 0) { %>
+      <% teamList.forEach(team => { %>
       <option value="<%= team.id %>"><%= team.name %></option>
-      <%}); %>
+      <% }); %>
       <% } else { %>
       <option>No teams available...</option>
       <% } %>
     </select>
 
-    <label for="body-field">Description:</label>
-    <textarea name="body" id="body-field" rows="10" required></textarea>
-
+    <hr>
+    <textarea name="body" id="body-field" rows="10" placeholder="description" required style="width: 100%;"></textarea>
+    <br>
     <button type="submit">Submit</button>
   </fieldset>
 </form>
+<style>
+  #title-field {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .newpost-form fieldset {
+    padding: 1rem 2rem;
+  }
+
+  .newpost-form input,
+  .newpost-form select {
+    margin-right: 1rem;
+    padding: 0.2rem;
+  }
+
+  .newpost-form textarea {
+    padding: 1rem;
+  }
+
+  .newpost-form button {
+    padding: 0.3rem 0.6rem;
+  }
+</style>

@@ -26,7 +26,7 @@ db.exec(`
 		creation_timestamp TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		due_date TEXT,
 		title TEXT NOT NULL,
-		status TEXT NOT NULL DEFAULT 'pending',
+		status TEXT NOT NULL DEFAULT 'new',
 		body TEXT NOT NULL,
 		creator_email TEXT NOT NULL,
 		assignee_email TEXT,
