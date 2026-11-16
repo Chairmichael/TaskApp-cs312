@@ -207,8 +207,12 @@
       </div>
     </header>
 
-    <main class="container">
-      <h2>Team Tasks</h2>
+  <section class="container">
+    <%- include(partials/taskform) %>
+  </section>
+
+  <main class="container">
+    <h2>Team Tasks</h2>
 
       <% if (isPreview) { %>
         <p class="preview-note">

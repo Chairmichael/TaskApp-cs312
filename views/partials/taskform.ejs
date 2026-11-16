@@ -1,0 +1,27 @@
+<form action="/tasks" method="post" class="newpost-form">
+  <fieldset>
+    <legend>New task</legend>
+
+    <label for="title-field">Title:</label>
+    <input type="text" name="title" id="title-field" required>
+
+    <label for="duedate-field">Due date:</label>
+    <input type="datetime" id="duedate-field" name="due_date">
+
+    <label for="team-field">Team:</label>
+    <select name="team_id" id="team-field" <%= !teams || teams.length === 0 ? 'disabled' : '' %>>
+      <% if(teams && teams.length >= 0) { %>
+      <% teams.forEach(team => { %>
+      <option value="<%= team.id %>"><%= team.name %></option>
+      <%}); %>
+      <% } else { %>
+      <option>No teams available...</option>
+      <% } %>
+    </select>
+
+    <label for="body-field">Description:</label>
+    <textarea name="body" id="body-field" rows="10" required></textarea>
+
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
