@@ -1,0 +1,83 @@
+<form action="/tasks" method="post" class="newtask-form">
+  <fieldset>
+    <legend>New task</legend>
+
+    <div class="title-row">
+      <label for="title-field">Title:</label>
+      <input type="text" name="title" id="title-field" required>
+    </div>
+
+    <div class="newtask-details">
+      <label for="duedate-field">Due date:</label>
+      <input type="datetime" id="duedate-field" name="due_date" placeholder="YEAR-MM-DD">
+
+      <label for="priority-field">Priority:</label>
+      <select name="priority" id="priority-field">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <label for="team-field">Team:</label>
+      <% const teamList = typeof teams !== 'undefined' && Array.isArray(teams) ? teams : []; %>
+      <select name="team_id" id="team-field" <%= teamList.length === 0 ? 'disabled' : '' %>>
+        <% if (teamList.length > 0) { %>
+        <% teamList.forEach(team => { %>
+        <option value="<%= team.id %>"><%= team.name %></option>
+        <% }); %>
+        <% } else { %>
+        <option>No teams available...</option>
+        <% } %>
+      </select>
+    </div>
+
+    <hr width="90%" size="2">
+    <textarea name="body" id="body-field" rows="10" placeholder="description" required style="width: 100%;"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
+<style>
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  #title-field {
+    font-size: 1.2rem;
+    flex: 1;
+    min-width: 0;
+    margin-right: 0;
+    padding: 0.5rem;
+  }
+
+
+  .title-row label {
+    font-size: 1.1rem;
+  }
+
+  .newtask-form fieldset {
+    padding: 1rem 2rem;
+  }
+
+  .newtask-details input,
+  .newtask-details select {
+    margin-right: 1rem;
+    padding: 0.2rem;
+  }
+
+  .newtask-form textarea {
+    padding: 1rem;
+  }
+
+  .newtask-form button {
+    padding: 0.3rem 0.6rem;
+  }
+
+  .newtask-form fieldset {
+    border-color: aliceblue;
+    border-radius: 8px;
+  }
+</style>
